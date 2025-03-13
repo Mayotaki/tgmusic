@@ -84,11 +84,13 @@ class Window(QMainWindow):
 
 
         self.setStyleSheet("""
-            QMainWindow     {background-color: #8b6968;
-                            }
-            QMainWindow::title{font-size: 0px;
-                            background-color: transparent;
-                            }
+            QMainWindow{
+                background-color: #8b6968;
+                }
+            QMainWindow::title{
+                font-size: 0px;
+                background-color: transparent;
+                }
         """)
 
 
