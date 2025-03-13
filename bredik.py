@@ -1,6 +1,8 @@
 import requests
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtWidgets import QApplication, QMainWindow, QDesktopWidget, QLabel, QPushButton
+from PyQt5.QtGui import QIcon, QFont, QPixmap, QRegion, QBitmap, QPainter, QColor, QBrush
+from PyQt5.QtCore import Qt, QRect, QSize
 
 
 # ____________________________________________________________
@@ -55,18 +57,47 @@ def get_pokemon_info():
 # ______________________________________________________
 
 
-class MainWindow(QMainWindow):
+class Window(QMainWindow):
     def __init__(self):
         super().__init__()
 
+
+        screen = QDesktopWidget().screenGeometry()
+        screen_width = screen.width()
+        screen_height = screen.height()
+
+        self.window_width = int(screen_width / 1.5)
+        self.window_height = int(screen_height / 1.5)
+
+        self.resize(self.window_width, self.window_height)
+
+        self.move(int((screen_width - self.window_width)/2),
+                  int((screen_height - self.window_height)/2))
+        
+        self.setWindowFlags(
+            Qt.CustomizeWindowHint |
+            Qt.WindowMinMaxButtonsHint |
+            Qt.WindowCloseButtonHint
+        )
+        self.setWindowTitle(" ")
+        self.setWindowIcon(QIcon("assets/app_ass)/0111.gif"))
+
+
+        self.setStyleSheet("""
+            QMainWindow     {background-color: #8b6968;
+                            }
+            QMainWindow::title{font-size: 0px;
+                            background-color: transparent;
+                            }
+        """)
+
+
 def main():
     app = QApplication(sys.argv)
-    window = MainWindow()
+    window = Window()
     window.show()
     sys.exit(app.exec_())
 
 
 if __name__ == "__main__":
-    pokemon_inf = get_pokemon_info()
-    if pokemon_inf:
-        print(f"{pokemon_inf["name"]}")
+    main()
