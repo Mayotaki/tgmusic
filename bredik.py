@@ -1,4 +1,7 @@
-import os
+import requests
+import sys
+from PyQt5.QtWidgets import QApplication, QMainWindow
+
 
 # ____________________________________________________________
 def add_litergue(func):
@@ -25,13 +28,42 @@ def get_boobs(size):
 file_path = "test.txt"
 
 def check(search_str):
+    search_for = input("What do you search for?\n")
     with open(file_path, 'r', encoding='utf-8') as f:
         for line_num, line in enumerate(f, 1):
             if search_str in line:
                 print(F"{search_str} was found on {line_num} line")
 
+# ____________________________________________________________
+
+POKEMON_API = "https://pokeapi.co/api/v2/"
+
+def get_pokemon_info():
+    pokemon_name = input("Enter the pokemon name: ")
+ 
+    url = f"{POKEMON_API}/pokemon/{pokemon_name}"
+    response = requests.get(url)
+    
+    if response.status_code == 200:
+        pokemon_data = response.json()
+        return pokemon_data
+    else:
+        print("Undefined issue, try different name")
+        get_pokemon_info()
+        
+# ______________________________________________________
+
+
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+
+def main():
+    app = QApplication(sys.argv)
+    window = MainWindow()
+    window.show()
+    sys.exit(app.exec_())
+    
 
 if __name__ == "__main__":
-    search_for = input("What do you search for?\n")
-
-    check(search_for)
+    main()
