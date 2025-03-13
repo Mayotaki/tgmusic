@@ -27,12 +27,12 @@ def get_boobs(size):
 
 file_path = "test.txt"
 
-def check(search_str):
+def check():
     search_for = input("What do you search for?\n")
     with open(file_path, 'r', encoding='utf-8') as f:
         for line_num, line in enumerate(f, 1):
-            if search_str in line:
-                print(F"{search_str} was found on {line_num} line")
+            if search_for in line:
+                print(F"{search_for} was found on {line_num} line")
 
 # ____________________________________________________________
 
@@ -50,6 +50,7 @@ def get_pokemon_info():
     else:
         print("Undefined issue, try different name")
         get_pokemon_info()
+
         
 # ______________________________________________________
 
@@ -63,7 +64,9 @@ def main():
     window = MainWindow()
     window.show()
     sys.exit(app.exec_())
-    
+
 
 if __name__ == "__main__":
-    main()
+    pokemon_inf = get_pokemon_info()
+    if pokemon_inf:
+        print(f"{pokemon_inf["name"]}")
